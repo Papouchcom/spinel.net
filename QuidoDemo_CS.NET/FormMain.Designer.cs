@@ -51,6 +51,7 @@ namespace QuidoDemo
             this.buttonCiDisconnect = new System.Windows.Forms.Button();
             this.buttonQuidoCreate = new System.Windows.Forms.Button();
             this.groupBoxQuido = new System.Windows.Forms.GroupBox();
+            this.buttonGetSn = new System.Windows.Forms.Button();
             this.numericOutputTimer = new System.Windows.Forms.NumericUpDown();
             this.labelOutputTimer = new System.Windows.Forms.Label();
             this.buttonGetOutputs = new System.Windows.Forms.Button();
@@ -71,7 +72,6 @@ namespace QuidoDemo
             this.buttonGetInfo = new System.Windows.Forms.Button();
             this.buttonQuidoDestroy = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.buttonGetSn = new System.Windows.Forms.Button();
             this.groupBoxCommunicationInterface.SuspendLayout();
             this.groupBoxQuido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOutputTimer)).BeginInit();
@@ -338,6 +338,16 @@ namespace QuidoDemo
             this.groupBoxQuido.TabStop = false;
             this.groupBoxQuido.Text = "Quido";
             // 
+            // buttonGetSn
+            // 
+            this.buttonGetSn.Location = new System.Drawing.Point(301, 71);
+            this.buttonGetSn.Name = "buttonGetSn";
+            this.buttonGetSn.Size = new System.Drawing.Size(89, 46);
+            this.buttonGetSn.TabIndex = 41;
+            this.buttonGetSn.Text = "Get Serial Number";
+            this.buttonGetSn.UseVisualStyleBackColor = true;
+            this.buttonGetSn.Click += new System.EventHandler(this.buttonGetSn_Click);
+            // 
             // numericOutputTimer
             // 
             this.numericOutputTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -551,16 +561,6 @@ namespace QuidoDemo
             this.richTextBox1.Size = new System.Drawing.Size(390, 629);
             this.richTextBox1.TabIndex = 20;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            // 
-            // buttonGetSn
-            // 
-            this.buttonGetSn.Location = new System.Drawing.Point(301, 71);
-            this.buttonGetSn.Name = "buttonGetSn";
-            this.buttonGetSn.Size = new System.Drawing.Size(89, 46);
-            this.buttonGetSn.TabIndex = 41;
-            this.buttonGetSn.Text = "Get Serial Number";
-            this.buttonGetSn.UseVisualStyleBackColor = true;
-            this.buttonGetSn.Click += new System.EventHandler(this.buttonGetSn_Click);
             // 
             // FormMain
             // 
