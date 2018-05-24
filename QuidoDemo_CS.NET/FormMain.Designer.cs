@@ -71,6 +71,7 @@ namespace QuidoDemo
             this.buttonGetInfo = new System.Windows.Forms.Button();
             this.buttonQuidoDestroy = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.buttonGetSn = new System.Windows.Forms.Button();
             this.groupBoxCommunicationInterface.SuspendLayout();
             this.groupBoxQuido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOutputTimer)).BeginInit();
@@ -309,6 +310,7 @@ namespace QuidoDemo
             // 
             this.groupBoxQuido.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxQuido.Controls.Add(this.buttonGetSn);
             this.groupBoxQuido.Controls.Add(this.numericOutputTimer);
             this.groupBoxQuido.Controls.Add(this.labelOutputTimer);
             this.groupBoxQuido.Controls.Add(this.buttonGetOutputs);
@@ -550,6 +552,16 @@ namespace QuidoDemo
             this.richTextBox1.TabIndex = 20;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
+            // buttonGetSn
+            // 
+            this.buttonGetSn.Location = new System.Drawing.Point(301, 71);
+            this.buttonGetSn.Name = "buttonGetSn";
+            this.buttonGetSn.Size = new System.Drawing.Size(89, 46);
+            this.buttonGetSn.TabIndex = 41;
+            this.buttonGetSn.Text = "Get Serial Number";
+            this.buttonGetSn.UseVisualStyleBackColor = true;
+            this.buttonGetSn.Click += new System.EventHandler(this.buttonGetSn_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -616,6 +628,7 @@ namespace QuidoDemo
         private System.Windows.Forms.ComboBox comboBoxSerialPortName;
         private System.Windows.Forms.RadioButton radioButtonTcpClient;
         private System.Windows.Forms.RadioButton radioButtonSerialPort;
+        private System.Windows.Forms.Button buttonGetSn;
     }
 }
 

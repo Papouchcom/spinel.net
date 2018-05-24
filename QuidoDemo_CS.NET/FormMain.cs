@@ -92,6 +92,7 @@ namespace QuidoDemo
 
             buttonGetInfo.Enabled = bq;
             buttonGetInfoCore.Enabled = bq;
+            buttonGetSn.Enabled = bq;
 
             buttonGetOutputs.Enabled = bq;
             buttonSetOutputOn.Enabled = bq;
@@ -263,6 +264,24 @@ namespace QuidoDemo
                     LogMsg(s);
                 }
             }
+        }
+
+        private void buttonGetSn_Click(object sender, EventArgs e)
+        {
+            if (ci!=null)
+            {
+                SpinelDeviceSN sn;
+
+                if (quido.CmdGetSN(out sn) && sn.Valid)
+                {
+                    LogMsg("Get SN - sn: " + sn.SerialNumber.ToString() + ", type: " + sn.DeviceType.ToString() + ", factory_data: " + sn.FactoryData.ToString());
+                }
+                else
+                {
+                    LogMsg("Get SN - failure");
+                }
+            }
+
         }
 
         #endregion
@@ -552,5 +571,6 @@ namespace QuidoDemo
                 comboBoxSerialPortName.EndUpdate();
             }
         }
+
     }
 }

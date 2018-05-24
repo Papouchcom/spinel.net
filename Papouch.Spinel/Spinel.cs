@@ -9,6 +9,29 @@ namespace Papouch.Spinel
         SpinelFormat65 = 65
     }
 
+    public class SpinelDeviceSN
+    {
+        public Boolean Valid { get; }
+        public uint SerialNumber { get; }
+        public uint DeviceType { get; }
+        public uint FactoryData { get; }
+
+        public SpinelDeviceSN(byte[] sdata)
+        {
+            this.Valid = false;
+            if ((sdata!=null) && (sdata.Length == 8))
+            {
+                this.SerialNumber = (uint)(sdata[0] * 0x100 + sdata[1]);
+                this.DeviceType = (uint)(sdata[2] * 0x100 + sdata[3]);
+                for (int i = 4; i <= 7; i++)
+                {
+                    this.FactoryData = (this.FactoryData * 0x100) + sdata[i];
+                }
+                this.Valid = true;
+            }
+        }
+    }
+
     public class SpinelDeviceVersion
     {
         private Boolean fValid;
@@ -24,14 +47,14 @@ namespace Papouch.Spinel
 
         public bool ParseString(string data)
         {
-            fValid = false;
+            this.fValid = false;
 
             string s;
             string[] ss = data.Split(';');
 
             if (ss.Length > 0)
             {
-                fDescription = ss[0];
+                this.fDescription = ss[0];
 
                 for (int i = 1; i < ss.Length; i++)
                 {
@@ -42,13 +65,13 @@ namespace Papouch.Spinel
 
                         if (sa.Length == 3)
                         {
-                            fProductId = uint.Parse(sa[0].Trim());
-                            fHardwareId = ushort.Parse(sa[1].Trim());
-                            fSoftwareId = ushort.Parse(sa[2].Trim());
+                            this.fProductId = uint.Parse(sa[0].Trim());
+                            this.fHardwareId = ushort.Parse(sa[1].Trim());
+                            this.fSoftwareId = ushort.Parse(sa[2].Trim());
                         }
                     } 
                 }
-                fValid = true;
+                this.fValid = true;
             }
             
             return this.fValid;
@@ -56,23 +79,23 @@ namespace Papouch.Spinel
 
         public Boolean Valid
         {
-            get {   return fValid;  }
+            get {   return this.fValid;  }
         }
         public uint ProductId
         {
-            get {   return fProductId;  }
+            get {   return this.fProductId;  }
         }
         public ushort HardwareId
         {
-            get {   return fHardwareId; }
+            get {   return this.fHardwareId; }
         }
         public ushort SoftwareId
         {
-            get {   return fSoftwareId; }
+            get {   return this.fSoftwareId; }
         }
         public string Description
         {
-            get {   return fDescription;    }
+            get {   return this.fDescription;    }
 
         }
     }

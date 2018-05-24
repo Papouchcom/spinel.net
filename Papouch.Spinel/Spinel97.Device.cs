@@ -14,6 +14,9 @@ namespace Papouch.Spinel.Spinel97.Device
 {
     public class Device : CsPropertyObject
     {
+        public byte S97_INST_ReadInfo = 0xF3;     // Čtení informací o výrobku (typové)
+        public byte S97_INST_ReadSN         = 0xFA;     // Čtení výrobních údajů
+
         internal ICommunicationInterface ci = null;
         private byte fADR = 0xFE;
         private byte fSIG = 0x00;
@@ -30,14 +33,15 @@ namespace Papouch.Spinel.Spinel97.Device
 
             if ((ci != null) && (ci.Active))
             {
-                PacketSpinel97 txPacket = new PacketSpinel97(0xF3);
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_ReadInfo);
                 txPacket.ADR = fADR;
 
                 PacketSpinel97 rxPacket;
 
                 //                if (Spinel97Utils.SendAndReceive(ref this.ci, ref txPacket, out rxPacket))
-                if (SendAndReceive(ref txPacket, out rxPacket))
+                if (this.SendAndReceive(ref txPacket, out rxPacket))
                 {
+                    
                     version = new SpinelDeviceVersion(Encoding.ASCII.GetString(rxPacket.SDATA));
                     return version.Valid;
                 }
@@ -46,7 +50,28 @@ namespace Papouch.Spinel.Spinel97.Device
             return false;
         }
 
-       
+        public Boolean CmdGetSN(out SpinelDeviceSN dev_sn)
+        {
+            dev_sn = null;
+
+            if ((ci != null) && (ci.Active))
+            {
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_ReadSN);
+                txPacket.ADR = fADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (this.SendAndReceive(ref txPacket, out rxPacket))
+                {
+                    dev_sn = new SpinelDeviceSN(rxPacket.SDATA);
+                    return dev_sn.Valid;
+                }
+            }
+
+            return false;
+        }
+
+
         [CsProperty("ADR", 0xFE)]
         public byte ADR
         {
