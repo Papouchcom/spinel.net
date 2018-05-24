@@ -46,6 +46,10 @@
     <Compile Include="Spinel97.SpinelStack.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Papouch.Comunication\Papouch.Comunication.csproj">
+      <Project>{22ac128a-2ff6-4d39-96af-ca023025bb4d}</Project>
+      <Name>Papouch.Comunication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Papouch.Utils\Papouch.Utils.csproj">
       <Project>{4e14856b-8b6d-4166-a736-1ecd5e54e2be}</Project>
       <Name>Papouch.Utils</Name>

@@ -19,6 +19,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
         public byte S97_INST_QUIDO_SetCounterSettings   = 0x6A;     // Nastavení čítačů
         public byte S97_INST_QUIDO_GetCounterSettings   = 0x6B;     // Čtení nastavení čítačů
         public byte S97_INST_QUIDO_SetOutput            = 0x20;     // Nastavení výstupů
+        public byte S97_INST_QUIDO_SetOutputTimered     = 0x23;     // Nastavení výstupů na určitou dobu
         public byte S97_INST_QUIDO_GetOutputs           = 0x30;     // Čtení výstupů
 
         public int InputCount = -1;                                 // Počet vstupů Quida
@@ -29,20 +30,42 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
         {
             
         }
-        
+
+        [Obsolete("Use method \"CmdSetOutput()\"")]
+        public Boolean CmdSetRele(byte rele, Boolean value, byte timer = 0)
+        {
+            return CmdSetOutput(rele, value, timer);
+        }
+
         /// <summary>
         ///     Nastavení výstupu
         /// </summary>
         /// <param name="rele">výstup (indexováno od 1)</param>
         /// <param name="value">požadovaný stav</param>
+        /// <param name="timer">čas po který bude výstup nastaven do požadovaného stavu, poté dojde ke změně na opačný stav. ( 1-255 * 0.5s )</param>
         /// <returns>vrací True v případě potvrzení příkazu modulem</returns>
-        public Boolean CmdSetRele(byte rele, Boolean value)                      
+        public Boolean CmdSetOutput(byte rele, Boolean value, byte timer = 0)
         {
-            PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_QUIDO_SetOutput);
-            txPacket.ADR = this.ADR;
+            PacketSpinel97 txPacket = new PacketSpinel97();
+            byte[] data;
 
-            byte[] data = new byte[1];
-            data[0] = (byte)( ((value) ? 0x80 : 0x00) | ( rele & 0x7F) );     
+            if (timer == 0)
+            {
+                txPacket.INST = S97_INST_QUIDO_SetOutput;
+
+                data = new byte[1];
+                data[0] = (byte)(((value) ? 0x80 : 0x00) | (rele & 0x7F));
+
+            } else {
+
+                txPacket.INST = S97_INST_QUIDO_SetOutputTimered;
+
+                data = new byte[2];
+                data[0] = timer;
+                data[1] = (byte)(((value) ? 0x80 : 0x00) | (rele & 0x7F));
+            }
+
+            txPacket.ADR = this.ADR;
 
             txPacket.SDATA = data;
 
@@ -51,6 +74,39 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             if (this.SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
             {
                 return true;
+            }
+            return false;
+
+        }
+
+        /// <summary>
+        ///     Čtení stavu výstupů / relé
+        /// </summary>
+        /// <param name="outputs"></param>
+        /// <returns>vrací True pokud je přijata a zpracována korektní odpověď</returns>
+        public Boolean CmdGetOutputs(out Boolean[] outputs)
+        {
+            outputs = null;
+
+            PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_QUIDO_GetOutputs);
+            txPacket.ADR = this.ADR;
+            PacketSpinel97 rxPacket;
+
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            {
+                if (rxPacket.SDATA != null)
+                {
+                    outputs = new Boolean[(InputCount > -1) ? InputCount : rxPacket.SDATA.Length * 8];
+
+                    byte index = 0;
+                    while ((index < outputs.Length) && ((index / 8) < rxPacket.SDATA.Length))
+                    {
+                        outputs[index] = (((rxPacket.SDATA[rxPacket.SDATA.Length - (index / 8) - 1]) & (1 << (index % 8))) != 0);
+                        index++;
+                    }
+
+                    return true;
+                }
             }
             return false;
         }

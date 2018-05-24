@@ -1,15 +1,16 @@
 using System;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
-using System.Drawing;
-using System.Collections.Generic;
-//using System.Reflection;
 
 using Papouch.Communication;
 using Papouch.Spinel;
 using Papouch.Spinel.Spinel97;
 using Papouch.Utils;
+
+using System.IO.Ports;
+
+using System.Threading;
+
 
 namespace QuidoDemo
 {
@@ -37,6 +38,8 @@ namespace QuidoDemo
                 if (val != null) textBoxDeviceString.Text = val.ToString();
                 key.Close();
             }
+            reloadSerialPortNames(sender, e);
+            radioButtonProviderChange(sender, e);
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -90,10 +93,14 @@ namespace QuidoDemo
             buttonGetInfo.Enabled = bq;
             buttonGetInfoCore.Enabled = bq;
 
+            buttonGetOutputs.Enabled = bq;
             buttonSetOutputOn.Enabled = bq;
             buttonSetOutputOff.Enabled = bq;
             numericOutputIndex.Enabled = bq;
             labelOutputIndex.Enabled = bq;
+            numericOutputTimer.Enabled = bq;
+            labelOutputTimer.Enabled = bq;
+
 
             buttonGetInputs.Enabled = bq;
 
@@ -123,8 +130,15 @@ namespace QuidoDemo
             }
             else
             {
-                ci = new CiSerialPort();
-                ci.ConfigString = textBoxConnectionString.Text;
+                try
+                {
+                    ci = new CiSerialPort();
+                    ci.ConfigString = textBoxConnectionString.Text;
+                }
+                catch (Exception e)
+                {
+                    LogMsg("Exception: {0}", e.Message);
+                }
             }
            
             LogMsg("CREATE CI");
@@ -255,13 +269,31 @@ namespace QuidoDemo
 
         #region Commands: Outputs
 
+        private void buttonGetOutputs_Click(object sender, EventArgs e)
+        {
+            if (quido != null)
+            {
+                LogMsg("*** GetOutputs ***");
+
+                bool[] outputs = null;
+                if (quido.CmdGetOutputs(out outputs))
+                {
+                    for (int index = 0; index < outputs.Length; index++)
+                    {
+                        LogMsg("Output " + index.ToString() + " is " + ((outputs[index]) ? "ON" : "OFF"));
+                    }
+                }
+            }
+        }
+
         private void buttonSetRele1On_Click(object sender, EventArgs e)
         {
             if (quido != null)
             {
                 byte index = (byte)numericOutputIndex.Value;
-                
-                if (quido.CmdSetRele(index, true))
+                byte timer = (byte)numericOutputTimer.Value;
+
+                if (quido.CmdSetOutput(index, true, timer))
                 {
                     LogMsg("Quido Rele {0} = on", index);
                 }
@@ -277,8 +309,9 @@ namespace QuidoDemo
             if (quido != null)
             {
                 byte index = (byte)numericOutputIndex.Value;
-                
-                if (quido.CmdSetRele(index, false))
+                byte timer = (byte)numericOutputTimer.Value;
+
+                if (quido.CmdSetOutput(index, false, timer))
                 {
                     LogMsg("Quido Rele {0} = off", index);
                 }
@@ -472,5 +505,52 @@ namespace QuidoDemo
 
         #endregion
 
+        private void radioButtonProviderChange(object sender, EventArgs e)
+        {
+            textBoxTcpPort.Enabled = radioButtonTcpClient.Checked;
+            textBoxTcpHost.Enabled = radioButtonTcpClient.Checked;
+
+            comboBoxSerialPortName.Enabled = radioButtonSerialPort.Checked;
+            comboBoxSerialPortBaudRate.Enabled = radioButtonSerialPort.Checked;
+
+            providerSettingsChange(sender, e);
+        }
+        private void providerSettingsChange(object sender, EventArgs e)
+        {
+            string s = "";
+            if (radioButtonSerialPort.Checked)
+            {
+                s += "provider=SERIAL_PORT;";
+                s += "PortName=" + comboBoxSerialPortName.SelectedItem + ";";
+                s += "BaudRate=" + comboBoxSerialPortBaudRate.SelectedItem + ";";
+            }
+            else
+            if (radioButtonTcpClient.Checked)
+            {
+                s += "provider=TCP_CLIENT;";
+                s += "Host=" + textBoxTcpHost.Text + ";";
+                s += "Port=" + textBoxTcpPort.Text + ";";
+            }
+            textBoxConnectionString.Text = s;
+        }
+
+        private void reloadSerialPortNames(object sender, EventArgs e)
+        {
+            comboBoxSerialPortName.BeginUpdate();
+            try
+            {
+                comboBoxSerialPortName.Items.Clear();
+
+                string[] ports = SerialPort.GetPortNames();
+                foreach (string port in ports)
+                {
+                    comboBoxSerialPortName.Items.Add(port);
+                }
+            }
+            finally
+            {
+                comboBoxSerialPortName.EndUpdate();
+            }
+        }
     }
 }

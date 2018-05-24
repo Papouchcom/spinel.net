@@ -138,13 +138,20 @@ namespace Papouch.Communication
 
         protected void ParseCs(string cs)
         {
-            string[] sa = cs.Split(';');
-            foreach (string s in sa)
+            try
             {
-                if (s != "")
+                string[] sa = cs.Split(';');
+                foreach (string s in sa)
                 {
-                    ParseCsItem(s);
+                    if (s != "")
+                    {
+                        ParseCsItem(s);
+                    }
                 }
+            }
+            catch
+            {
+
             }
         }
         #endregion
