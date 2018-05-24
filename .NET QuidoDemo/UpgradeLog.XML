@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="QuidoDemo">
+</Property><Property Name="Solution File" Value="c:\DATA\! C#\QuidoDemo\QuidoDemo.sln">
+</Property><Property Name="User Options File" Value="c:\DATA\! C#\QuidoDemo\QuidoDemo.suo">
+</Property><Property Name="Date" Value="6. února 2009">
+</Property><Property Name="Time" Value="9:29">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="QuidoDemo.sln" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\QuidoDemo.sln">
+</Event><Event ErrorLevel="0" Project="" Source="QuidoDemo.suo" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\QuidoDemo.suo">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Project file successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\QuidoDemo.csproj">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="CiSerialPort.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\CiSerialPort.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Quido.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Quido.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="SpinelDevice.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\SpinelDevice.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Ci.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Ci.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\FormMain.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.Designer.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\FormMain.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Program.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Program.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\AssemblyInfo.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Resources.Designer.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Settings.Designer.cs" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Settings.settings" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.resx" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\FormMain.resx">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Resources.resx" Description="File successfully backed up as c:\DATA\! C#\QuidoDemo\Backup\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="QuidoDemo.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="QuidoDemo.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

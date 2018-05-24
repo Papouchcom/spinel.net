@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="QuidoDemo">
+</Property><Property Name="Solution File" Value="C:\data\! NET\QuidoDemo\QuidoDemo.sln">
+</Property><Property Name="User Options File" Value="C:\data\! NET\QuidoDemo\QuidoDemo.suo">
+</Property><Property Name="Date" Value="23. února 2010">
+</Property><Property Name="Time" Value="13:12">
+</Property><Property Name="Log Number" Value="2">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="QuidoDemo.sln" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\QuidoDemo.sln">
+</Event><Event ErrorLevel="0" Project="" Source="QuidoDemo.suo" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\QuidoDemo.suo">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Project file successfully backed up as C:\data\! NET\QuidoDemo\Backup1\QuidoDemo.csproj">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="CiSerialPort.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\CiSerialPort.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Spinel97.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Spinel97.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Quido.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Quido.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Spinel.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Spinel.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Ci.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Ci.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\FormMain.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.Designer.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\FormMain.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Program.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Program.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Resources.Designer.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Settings.Designer.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Settings.settings" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.resx" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\FormMain.resx">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Resources.resx" Description="File successfully backed up as C:\data\! NET\QuidoDemo\Backup1\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="QuidoDemo.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="QuidoDemo.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="QuidoDemo">
+</Property><Property Name="Solution File" Value="C:\data\! NET\QuidoDemo .NET native\QuidoDemo.sln">
+</Property><Property Name="User Options File" Value="C:\data\! NET\QuidoDemo .NET native\QuidoDemo.suo">
+</Property><Property Name="Date" Value="7. února 2011">
+</Property><Property Name="Time" Value="17:54">
+</Property><Property Name="Log Number" Value="3">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="QuidoDemo.sln" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\QuidoDemo.sln">
+</Event><Event ErrorLevel="0" Project="" Source="QuidoDemo.suo" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\QuidoDemo.suo">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Project file successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\QuidoDemo.csproj">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Quido.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Quido.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Spinel.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Spinel.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\FormMain.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.Designer.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\FormMain.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Program.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Program.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Resources.Designer.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Settings.Designer.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Settings.settings" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="FormMain.resx" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\FormMain.resx">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="Properties\Resources.resx" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Converted">
+</Event><Event ErrorLevel="1" Project="Papouch.Spinel" Source="..\Papouch.Quido\Papouch.Spinel.csproj" Description="Warning: The project file is being backed up to a relative path that differs from the original solution relative path.  The difference in folder hierarchy may create problems in opening or building the backed up solution and project.">
+</Event><Event ErrorLevel="0" Project="Papouch.Spinel" Source="..\Papouch.Quido\Papouch.Spinel.csproj" Description="Project file successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Spinel\Papouch.Spinel.csproj">
+</Event><Event ErrorLevel="0" Project="Papouch.Spinel" Source="..\Papouch.Quido\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Spinel\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Papouch.Spinel" Source="..\Papouch.Quido\Spinel97.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Spinel\Spinel97.cs">
+</Event><Event ErrorLevel="0" Project="Papouch.Spinel" Source="..\Papouch.Quido\SpinelStack.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Spinel\SpinelStack.cs">
+</Event><Event ErrorLevel="0" Project="Papouch.Spinel" Source="..\Papouch.Quido\Papouch.Spinel.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Papouch.Spinel" Source="..\Papouch.Quido\Papouch.Spinel.csproj" Description="Converted">
+</Event><Event ErrorLevel="1" Project="Papouch.Comunication" Source="..\Papouch.Comunication\Papouch.Comunication.csproj" Description="Warning: The project file is being backed up to a relative path that differs from the original solution relative path.  The difference in folder hierarchy may create problems in opening or building the backed up solution and project.">
+</Event><Event ErrorLevel="0" Project="Papouch.Comunication" Source="..\Papouch.Comunication\Papouch.Comunication.csproj" Description="Project file successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Comunication\Papouch.Comunication.csproj">
+</Event><Event ErrorLevel="0" Project="Papouch.Comunication" Source="..\Papouch.Comunication\Ci.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Comunication\Ci.cs">
+</Event><Event ErrorLevel="0" Project="Papouch.Comunication" Source="..\Papouch.Comunication\CiSerialPort.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Comunication\CiSerialPort.cs">
+</Event><Event ErrorLevel="0" Project="Papouch.Comunication" Source="..\Papouch.Comunication\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\data\! NET\QuidoDemo .NET native\Backup2\Papouch.Comunication\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Papouch.Comunication" Source="..\Papouch.Comunication\Papouch.Comunication.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Papouch.Comunication" Source="..\Papouch.Comunication\Papouch.Comunication.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="QuidoDemo.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="QuidoDemo.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="QuidoDemo" Source="QuidoDemo.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Papouch.Spinel" Source="..\Papouch.Quido\Papouch.Spinel.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Papouch.Comunication" Source="..\Papouch.Comunication\Papouch.Comunication.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
