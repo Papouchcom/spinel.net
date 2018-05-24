@@ -135,9 +135,9 @@ namespace QuidoDemo
                     ci = new CiSerialPort();
                     ci.ConfigString = textBoxConnectionString.Text;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    LogMsg("Exception: {0}", e.Message);
+                    LogMsg("Exception: {0}", ex.Message);
                 }
             }
            
