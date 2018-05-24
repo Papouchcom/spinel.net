@@ -5,13 +5,13 @@ Aktuální verze všech .NET projektů je kompatibilní s Microsoft Visual Studi
 Obsah složek:
 -------------
 
-\.NET assembly
-\.NET assembly\.NET QuidoDemo
-\.NET assembly\Papouch.Communication
-\.NET assembly\Papouch.Spinel
-\.NET assembly\Papouch.Utils
+\\.NET assembly  
+\\.NET assembly\\.NET QuidoDemo  
+\\.NET assembly\Papouch.Communication  
+\\.NET assembly\Papouch.Spinel  
+\\.NET assembly\Papouch.Utils  
   
-Složka obsahuje knihovny a ukázkový projekt pro moduly Quido v čistém C#.
-Všechny části jsou napsané v jazyku C# a při použití využívají jen .NET Frameworku. 
+Složka obsahuje knihovny a ukázkový projekt pro moduly Quido v čistém C#.  
+Všechny části jsou napsané v jazyku C# a při použití využívají jen .NET Frameworku.  
 Složka obsahuje knihovny pro komunikaci ("\Papouch.Communication"), protokol spinel ("\Papouch.Spinel") a doplňkové funkce ("\Papouch.Utils"). Tyto knihovny je možné zkompilovat jako samostatné .NET assembly (DLL) a použít je ve Vašem projektu, nebo je možné tyto knihovny přímo přikompilovat do Vaší aplikace (do výsledného EXE). 
 
