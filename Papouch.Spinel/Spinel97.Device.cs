@@ -117,7 +117,7 @@ namespace Papouch.Spinel.Spinel97.Device
         public virtual void PacketReceive(ref PacketSpinel97 packet)
         {
             Debug.Print("Receive packet {0}", packet.INST);
-            OnPacketReceive(packet);
+            OnPacketReceive?.Invoke(packet);
 
             if (packet.INST < 0x10)
             {

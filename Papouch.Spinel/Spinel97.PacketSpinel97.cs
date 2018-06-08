@@ -6,7 +6,22 @@ using Papouch.Communication;
 
 namespace Papouch.Spinel.Spinel97
 {
-    
+    /// <summary>
+    /// Výčet kódů Potvrzení dotazu (ACK). ACK informuje nadřazené zařízení jak dopadlo zpracování přijaté instrukce. Případně jakého typu je automaticky odeslaná zpráva.
+    /// </summary>
+    public enum ResponseACK
+    {
+        AllIsOk = 0x00,
+        AckOtherError = 0x01,
+        InvalidInstructionCode = 0x02,
+        InvalidData = 0x03,
+        AccessDenied = 0x04,
+        DeviceMalfunction = 0x05,
+        NoDataAvailable = 0x06,
+        AutoInfoInputChanged = 0x0D,
+        AutoInfoMeasured = 0x0E
+    }
+
     public class PacketSpinel97
     {
         public byte PRE;
