@@ -21,6 +21,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
         public byte S97_INST_QUIDO_SetOutput            = 0x20;     // Nastavení výstupů
         public byte S97_INST_QUIDO_SetOutputTimered     = 0x23;     // Nastavení výstupů na určitou dobu
         public byte S97_INST_QUIDO_GetOutputs           = 0x30;     // Čtení výstupů
+        public byte S97_INST_QUIDO_GetTemperature       = 0x51;     // Čtení teploty
 
         public int InputCount = -1;                                 // Počet vstupů Quida
         public int OutputCount = -1;                                // Počet výstupů Quida
@@ -229,6 +230,32 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             }
             rising = false;
             falling = false;
+            return false;
+        }
+
+        /// <summary>
+        /// Čtení teploty z připojeného teplotního senzoru
+        /// </summary>
+        /// <param name="temp">Aktuálně naměřená teplota. Pokud z nějakého důvodu není dostupná, je zde konstanta float.NaN.</param>
+        /// <param name="index">Číslo teploměru, číslováno od 1. Ve standardních Quidech je zde vždy 1.</param>
+        /// <returns>Teplota v aktuálně nastavené teplotní jednotce.</returns>
+        public Boolean CmdGetTemperature(out float temp, byte index = 0x01)
+        {
+            byte[] data = { index };
+
+            PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_QUIDO_GetTemperature, data);
+            txPacket.ADR = this.ADR;
+            PacketSpinel97 rxPacket;
+
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            {
+                if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 3))
+                {
+                    temp = (float)(rxPacket.SDATA[1] * 256 + rxPacket.SDATA[2]) / 10;
+                    return true;
+                }
+            }
+            temp = float.NaN;
             return false;
         }
 

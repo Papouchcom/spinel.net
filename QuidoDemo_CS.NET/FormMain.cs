@@ -416,7 +416,10 @@ namespace QuidoDemo
         {
             if (quido != null)
             {
-//                quido. CmdGetCounter
+                if (quido.CmdGetTemperature(out float temp))
+                    LogMsg($"Current temperature is {temp} °C");
+                else
+                    LogMsg("Temperature is not available.");
             }
         }
 

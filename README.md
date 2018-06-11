@@ -1,6 +1,6 @@
 # Quido.NET
 Balíček knihoven a ukázkových aplikací pro práci s [I/O moduly Papouch Quido](https://www.papouch.com/cz/website/mainmenu/clanky/vyberte-si/io-pro-ethernet-usb-rs485-rs232/) na platformě Microsoft .NET.  
-Aktuální verze všech .NET projektů je kompatibilní s Microsoft Visual Studio 2015 Professional.  
+Aktuální verze projektu je testována v [Microsoft Visual Studio Community 2017](https://www.visualstudio.com/cs/downloads/).  
 
 Všechny části jsou napsané v jazyce C# a při použití využívají jen .NET Frameworku.  
 Knihovny je možné zkompilovat jako samostatné .NET assembly (DLL) a použít je ve Vašem projektu, nebo je možné tyto knihovny přímo přikompilovat do Vaší aplikace (do výsledného EXE).

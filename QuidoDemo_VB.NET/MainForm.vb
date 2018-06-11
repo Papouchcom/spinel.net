@@ -331,7 +331,12 @@ Public Class FormMain
 #Region "Commands: Temperature"
 
     Private Sub buttonGetTemp_Click(sender As Object, e As EventArgs) Handles buttonGetTemp.Click
-
+        If quido IsNot Nothing Then
+            Dim temp As Single
+            If quido.CmdGetTemperature(temp) Then
+                LogMsg("Temperature is " + temp.ToString() + " °C")
+            End If
+        End If
     End Sub
 
 #End Region
