@@ -10,8 +10,6 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
 {
     public class Quido:Device
     {
-        public byte S97_ACK_OK = 0x00;
-
         public byte S97_INST_QUIDO_GetInputs            = 0x31;     // Čtení stavu vstupů
         public byte S97_INST_QUIDO_SetAutoNotify        = 0x10;     // Nastavení samovolného vysílání
         public byte S97_INST_QUIDO_GetAutoNotify        = 0x11;     // Čtení nastavení samovolného vysílání
@@ -72,7 +70,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
 
             PacketSpinel97 rxPacket;
 
-            if (this.SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (this.SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 return true;
             }
@@ -93,7 +91,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 if (rxPacket.SDATA != null)
                 {
@@ -125,7 +123,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 if (rxPacket.SDATA != null)
                 {
@@ -162,7 +160,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length > 1))
                 {
@@ -196,7 +194,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) & (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) & (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 return true;
             }
@@ -219,7 +217,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 if ( (rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 1) )
                 {
@@ -247,7 +245,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 3))
                 {
@@ -273,7 +271,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 if ( (rxPacket.SDATA != null) && (rxPacket.SDATA.Length > 1) )
                 {
@@ -305,7 +303,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == S97_ACK_OK))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 return true;
             }
