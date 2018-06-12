@@ -1,3 +1,5 @@
+**Dokumentace a příklady:** [zde ve wiki](https://github.com/Papouchcom/quido.net/wiki)  
+**Changelog** [najdete tady](https://github.com/Papouchcom/quido.net/wiki).
 # Quido.NET
 Balíček knihoven a ukázkových aplikací pro práci s [I/O moduly Papouch Quido](https://www.papouch.com/cz/website/mainmenu/clanky/vyberte-si/io-pro-ethernet-usb-rs485-rs232/) na platformě Microsoft .NET.  
 Aktuální verze projektu je testována v [Microsoft Visual Studio Community 2017](https://www.visualstudio.com/cs/downloads/).  
@@ -14,8 +16,6 @@ Co najdete ve složkách repozitáře:
 **\Papouch.Utils**: Doplňkové funkce.  
 **\Latest**: Zkompilované DLL, které můžete přímo [použít jako referenci](https://github.com/Papouchcom/quido.net/wiki/Jak-do-projektu-p%C5%99idat-referenci-na-knihovny-Quido.NET%3F) ve Vašem projektu (včetně PDB souborů).
   
-**\QuidoDemo_CS.NET**: Příklad aplikace v C#.  
-**\QuidoDemo_VB.NET**: Příklad aplikce ve VB.NET.  
+**\QuidoDemo_CS.NET**: Příklad aplikace pro Quido v C#.  
+**\QuidoDemo_VB.NET**: Příklad aplikce pro Quido ve VB.NET.  
 **\CommunicationInterfaceDemo_CS.NET**: Samostatný příklad použití komunikačního rozhraní.  
-***
-Přehled důležitých změn (changelog) [najdete zde](https://github.com/Papouchcom/quido.net/wiki).
