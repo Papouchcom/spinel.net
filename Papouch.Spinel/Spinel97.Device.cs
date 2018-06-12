@@ -14,8 +14,10 @@ namespace Papouch.Spinel.Spinel97.Device
 {
     public class Device : CsPropertyObject
     {
-        public byte S97_INST_ReadInfo = 0xF3;     // Čtení informací o výrobku (typové)
-        public byte S97_INST_ReadSN         = 0xFA;     // Čtení výrobních údajů
+        public byte S97_INST_ReadInfo   = 0xF3;     // Čtení informací o výrobku (typové)
+        public byte S97_INST_ReadSN     = 0xFA;     // Čtení výrobních údajů
+        public byte S97_INST_ReadStatus = 0xF1;     // Čtení statusu
+        public byte S97_INST_SetStatus  = 0xE1;     // Nastavení statusu
 
         internal ICommunicationInterface ci = null;
         private byte fADR = 0xFE;
@@ -34,11 +36,10 @@ namespace Papouch.Spinel.Spinel97.Device
             if ((ci != null) && (ci.Active))
             {
                 PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_ReadInfo);
-                txPacket.ADR = fADR;
+                txPacket.ADR = this.ADR;
 
                 PacketSpinel97 rxPacket;
 
-                //                if (Spinel97Utils.SendAndReceive(ref this.ci, ref txPacket, out rxPacket))
                 if (this.SendAndReceive(ref txPacket, out rxPacket))
                 {
                     
@@ -57,7 +58,7 @@ namespace Papouch.Spinel.Spinel97.Device
             if ((ci != null) && (ci.Active))
             {
                 PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_ReadSN);
-                txPacket.ADR = fADR;
+                txPacket.ADR = this.ADR;
 
                 PacketSpinel97 rxPacket;
 
@@ -68,6 +69,57 @@ namespace Papouch.Spinel.Spinel97.Device
                 }
             }
 
+            return false;
+        }
+
+        /// <summary>
+        /// Přečte uživatelsky definované číslo, které lze využít k zjištění stavu přístroje.
+        /// </summary>
+        /// <param name="dev_status">Int s platným rozsahem 0 až 255. Pokud je -1, čtení se nepodařilo a i výstupem instrukce je false.</param>
+        /// <returns>true = přečtení statusu se podařilo</returns>
+        public Boolean CmdGetStatus(out int dev_status)
+        {
+            if ((ci != null) && (ci.Active))
+            {
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_ReadStatus);
+                txPacket.ADR = this.ADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+                {
+                    if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 1))
+                    {
+                        dev_status = (int)rxPacket.SDATA[0];
+                        return true;
+                    }
+                }
+            }
+            dev_status = -1;
+            return false;
+        }
+
+        /// <summary>
+        /// Nastaví uživatelsky definované číslo, které lze využít k zjištění stavu přístroje.
+        /// </summary>
+        /// <param name="dev_status">Po zapnutí přístroje, nebo po resetu (i softwarovém) je 
+        /// automaticky nastaven status 0x00. Pokud je touto funkcí status přestaven na jinou
+        /// hodnotu, lze později snadno identifikovat, v jakém stavu se přístroj nachází.</param>
+        /// <returns></returns>
+        public Boolean CmdSetStatus(byte dev_status)
+        {
+            if ((ci != null) && (ci.Active))
+            {
+                byte[] data = { dev_status };
+
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_SetStatus, data);
+                txPacket.ADR = this.ADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+                    return true;
+            }
             return false;
         }
 
@@ -148,8 +200,6 @@ namespace Papouch.Spinel.Spinel97.Device
                 {
                     SpinelStackRec ssr = packets_to_send.Peek();
                     packets_to_send.Dequeue();
-                    //packets_to_send[0];
-                    //packets_to_send.RemoveAt(0);
 
                     byte[] txData = ssr.tx_packet.GetBin();
                     ci.Write(txData, 0, txData.Length);

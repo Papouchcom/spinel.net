@@ -194,7 +194,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) & (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
             {
                 return true;
             }
