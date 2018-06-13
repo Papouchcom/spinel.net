@@ -19,7 +19,8 @@ namespace Papouch.Spinel.Spinel97
         DeviceMalfunction = 0x05,
         NoDataAvailable = 0x06,
         AutoInfoInputChanged = 0x0D,
-        AutoInfoMeasured = 0x0E
+        AutoInfoMeasured = 0x0E, 
+        OtherCommError = 0xFF
     }
 
     public class PacketSpinel97

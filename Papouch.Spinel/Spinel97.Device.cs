@@ -14,10 +14,14 @@ namespace Papouch.Spinel.Spinel97.Device
 {
     public class Device : CsPropertyObject
     {
-        public byte S97_INST_ReadInfo   = 0xF3;     // Čtení informací o výrobku (typové)
-        public byte S97_INST_ReadSN     = 0xFA;     // Čtení výrobních údajů
-        public byte S97_INST_ReadStatus = 0xF1;     // Čtení statusu
-        public byte S97_INST_SetStatus  = 0xE1;     // Nastavení statusu
+        public byte S97_INST_ReadInfo          = 0xF3;     // Čtení informací o výrobku (typové)
+        public byte S97_INST_ReadSN            = 0xFA;     // Čtení výrobních údajů
+        public byte S97_INST_ReadStatus        = 0xF1;     // Čtení statusu
+        public byte S97_INST_SetStatus         = 0xE1;     // Nastavení statusu
+        public byte S97_INST_AllowConfig       = 0xE4;     // Povolení konfigurace
+        public byte S97_INST_GetCommParams     = 0xF0;     // Čtení komunikačních parametrů
+        public byte S97_INST_SetCommParams     = 0xE0;     // Nastavení komunikačních parametrů
+        public byte S97_INST_SetAddrBySN       = 0xEB;     // Nastavení adresy sériovým číslem
 
         internal ICommunicationInterface ci = null;
         private byte fADR = 0xFE;
@@ -122,6 +126,137 @@ namespace Papouch.Spinel.Spinel97.Device
             }
             return false;
         }
+
+        /// <summary>
+        /// Povoluje provedení konfigurace. Musí předcházet bezprostředně před některými instrukcemi pro nastavení 
+        /// komunikačních parametrů. Po následující instrukci (i neplatné) je konfigurace automaticky zakázána. 
+        /// (U této instrukce není možné použít univerzální adresu 0xFE.)
+        /// </summary>
+        /// <returns></returns>
+        public Boolean CmdAllowConfiguration()
+        {
+            if ((ci != null) && (ci.Active))
+            {
+                byte[] data = { };
+
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_AllowConfig, data);
+                txPacket.ADR = this.ADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Seznam standardních komunikačních rychlostí protokolu Spinel
+        /// </summary>
+        readonly int[] Baudrates = {110, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400};
+
+        /// <summary>
+        /// Zjistí adresu a komunikační rychlost zařízení. (Má význam jen u zařízení komunikujících po sériovém rozhraní.)
+        /// </summary>
+        /// <param name="addr">Adresa.</param>
+        /// <param name="baudrate">Komunikační rychlost v Baudech. Pokud je číslo menší než 110, jde o neznámý kód komunikační rychlosti.</param>
+        /// <returns></returns>
+        public Boolean CmdGetCommParams(out byte addr, out int baudrate)
+        {
+            if ((ci != null) && (ci.Active))
+            {
+                byte[] data = { };
+
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_GetCommParams, data);
+                txPacket.ADR = this.ADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+                {
+                    if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 2))
+                    {
+                        addr = rxPacket.SDATA[0];
+                        byte speedcode = rxPacket.SDATA[1];
+                        if (speedcode < Baudrates.Length)
+                            baudrate = Baudrates[speedcode];
+                        else
+                            baudrate = speedcode;
+                        return true;
+                    }
+                }
+            }
+            addr = 0xFF;
+            baudrate = 0xFF;
+            return false;
+        }
+
+        /// <summary>
+        /// Nastavení adresy a rychlosti. Bezprostředně před nastavením rychlosti musí být povolena konfugurace pomocí funkce <see cref="CmdAllowConfiguration"/>
+        /// </summary>
+        /// <param name="newaddr">Nová adresa. Musí být z rozsahu 0 až 253.</param>
+        /// <param name="newbaudrate">Nová komunikační rychlost v Baudech. Musí být jednou ze standardních komunikačních rychlostí jak jsou uvedeny v <see cref="Baudrates"/>. Pokud jde o jinou nestandardní rychlost, uveďte přímo kód rychlosti.</param>
+        /// <returns>Vrací standardní kód odpovědi z výčtu <see cref="ResponseACK"/>.</returns>
+        public ResponseACK CmdSetCommParams(byte newaddr, int newbaudrate)
+        {
+            if ((ci != null) && (ci.Active))
+            {
+                if ((newaddr == 0xFF) || (newaddr == 0xFE))
+                    return ResponseACK.InvalidData;
+
+                int speedcode = Array.IndexOf<int>(Baudrates, newbaudrate);
+                if ((speedcode == -1) && (newbaudrate > 0xFF))
+                    return ResponseACK.InvalidData;
+
+                if (speedcode == -1) speedcode = newbaudrate;
+
+                byte[] data = { newaddr, (byte)speedcode };
+
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_SetCommParams, data);
+                txPacket.ADR = this.ADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (SendAndReceive(ref txPacket, out rxPacket))
+                    return (ResponseACK)rxPacket.INST;
+            }
+            return ResponseACK.OtherCommError;
+        }
+
+        /// <summary>
+        /// Instrukce umožňuje nastavit adresu podle unikátního sériového čísla zařízení. 
+        /// Tato instrukce je praktická v případě, že nadřazený systém nebo obsluha ztratí adresu zařízení, 
+        /// které je na stejné komunikační lince s dalšími zařízeními.
+        /// </summary>
+        /// <param name="newaddr">Nová adresa. Musí být z rozsahu 0 až 253.</param>
+        /// <param name="devicenumber">Typ zařízení. Kompletní S/N zařízení má tvar 1234/4567. Typ zařízení je číslo před lomítkem.</param>
+        /// <param name="serialnumber">Sériové číslo. Kompletní S/N zařízení má tvar 1234/4567. Sériové číslo je číslo za lomítkem.</param>
+        /// <returns></returns>
+        public Boolean CmdSetAddressBySerialNumber(byte newaddr, UInt16 devicenumber, UInt16 serialnumber)
+        {
+            if ((ci != null) && (ci.Active))
+            {
+                if ((newaddr == 0xFF) || (newaddr == 0xFE))
+                    return false;
+
+                byte[] data = new byte[5];
+                data[0] = newaddr;
+                data[1] = (byte)((devicenumber & 0xFF00) >> 8);
+                data[2] = (byte)(devicenumber & 0x00FF);
+                data[3] = (byte)((serialnumber & 0xFF00) >> 8);
+                data[4] = (byte)(serialnumber & 0x00FF);
+
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_SetAddrBySN, data);
+                txPacket.ADR = 0xFE;
+
+                PacketSpinel97 rxPacket;
+
+                if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+                    return true;
+            }
+            return false;
+        }
+
 
 
         [CsProperty("ADR", 0xFE)]

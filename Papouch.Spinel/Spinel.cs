@@ -21,8 +21,8 @@ namespace Papouch.Spinel
             this.Valid = false;
             if ((sdata!=null) && (sdata.Length == 8))
             {
-                this.SerialNumber = (uint)(sdata[0] * 0x100 + sdata[1]);
-                this.DeviceType = (uint)(sdata[2] * 0x100 + sdata[3]);
+                this.DeviceType = (uint)(sdata[0] * 0x100 + sdata[1]);
+                this.SerialNumber = (uint)(sdata[2] * 0x100 + sdata[3]);
                 for (int i = 4; i <= 7; i++)
                 {
                     this.FactoryData = (this.FactoryData * 0x100) + sdata[i];
