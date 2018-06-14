@@ -1,8 +1,11 @@
 **Dokumentace a příklady:** [zde ve wiki](https://github.com/Papouchcom/quido.net/wiki)  
 **Changelog** [najdete tady](https://github.com/Papouchcom/quido.net/wiki).
 # Quido.NET
-Balíček knihoven a ukázkových aplikací pro práci s [I/O moduly Papouch Quido](https://www.papouch.com/cz/website/mainmenu/clanky/vyberte-si/io-pro-ethernet-usb-rs485-rs232/) na platformě Microsoft .NET.  
-Aktuální verze projektu je testována v [Microsoft Visual Studio Community 2017](https://www.visualstudio.com/cs/downloads/).  
+Balíček knihoven a ukázkových aplikací pro práci se zařízeními komunikujícími protokolem Spinel. V současné době jsou implementována tato zařízení:  
+* **I/O moduly Quido**: [dokumentace a příklady použití](https://github.com/Papouchcom/quido.net/wiki/Dokumentace:-Quido), [odkaz na web papouch.com](https://www.papouch.com/cz/website/mainmenu/clanky/vyberte-si/io-pro-ethernet-usb-rs485-rs232/)  
+* **Teploměry TQS3 a TQS4**: [dokumentace a příklady použití](https://github.com/Papouchcom/quido.net/wiki/Dokumentace:-TQS), [odkaz na web papouch.com](https://www.papouch.com/cz/website/mainmenu/products/mereni/teplomery-vlhkomery/rs485-tqs/)  
+
+Knihovna je určena pro platforu Microsoft .NET. Aktuální verze projektu je testována v [Microsoft Visual Studio Community 2017](https://www.visualstudio.com/cs/downloads/).  
 
 Všechny části jsou napsané v jazyce C# a při použití využívají jen .NET Frameworku.  
 Knihovny je možné zkompilovat jako samostatné .NET assembly (DLL) a použít je ve Vašem projektu, nebo je možné tyto knihovny přímo přikompilovat do Vaší aplikace (do výsledného EXE).
