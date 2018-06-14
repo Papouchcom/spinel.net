@@ -153,7 +153,7 @@ namespace Papouch.Spinel.Spinel97.Device
         /// <summary>
         /// Seznam standardních komunikačních rychlostí protokolu Spinel
         /// </summary>
-        readonly int[] Baudrates = {110, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400};
+        public readonly int[] Baudrates = {110, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400};
 
         /// <summary>
         /// Zjistí adresu a komunikační rychlost zařízení. (Má význam jen u zařízení komunikujících po sériovém rozhraní.)
