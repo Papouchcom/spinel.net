@@ -16,8 +16,8 @@ namespace Papouch.Spinel.Spinel97.Device.Tqs
         /// Čtení teploty z teplotního senzoru
         /// </summary>
         /// <param name="temp">Aktuálně naměřená teplota. Pokud z nějakého důvodu není dostupná, je zde konstanta float.NaN.</param>
-        /// <returns>Teplota ve stupních Celsia.</returns>
-        public Boolean CmdGetTemperature(out float temp)
+        /// <returns>Výčet <see cref="ResponseACK"/>.</returns>
+        public ResponseACK CmdGetTemperature(out float temp)
         {
             byte[] data = {};
 
@@ -25,16 +25,24 @@ namespace Papouch.Spinel.Spinel97.Device.Tqs
             txPacket.ADR = this.ADR;
             PacketSpinel97 rxPacket;
 
-            if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+            if (SendAndReceive(ref txPacket, out rxPacket))
             {
-                if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 2))
+                if (rxPacket.INST == (byte)ResponseACK.AllIsOk)
                 {
-                    temp = (float)(rxPacket.SDATA[0] * 256 + rxPacket.SDATA[1]) / 32;
-                    return true;
+                    if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 2))
+                    {
+                        temp = (float)(rxPacket.SDATA[0] * 256 + rxPacket.SDATA[1]) / 32;
+                        return ResponseACK.AllIsOk;
+                    }
+                }
+                else
+                {
+                    temp = float.NaN;
+                    return (ResponseACK)rxPacket.INST;
                 }
             }
             temp = float.NaN;
-            return false;
+            return ResponseACK.OtherCommError;
         }
 
     }
