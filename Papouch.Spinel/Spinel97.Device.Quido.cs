@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Text;
 using System.Diagnostics;
-
 using Papouch.Spinel.Spinel97;
 using Papouch.Communication;
-
+using System.Collections.Generic;
 
 namespace Papouch.Spinel.Spinel97.Device.Quido
 {
@@ -39,11 +37,11 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
         /// <summary>
         ///     Nastavení výstupu
         /// </summary>
-        /// <param name="rele">výstup (indexováno od 1)</param>
+        /// <param name="outid">výstup (indexováno od 1)</param>
         /// <param name="value">požadovaný stav</param>
         /// <param name="timer">čas po který bude výstup nastaven do požadovaného stavu, poté dojde ke změně na opačný stav. ( 1-255 * 0.5s )</param>
         /// <returns>vrací True v případě potvrzení příkazu modulem</returns>
-        public Boolean CmdSetOutput(byte rele, Boolean value, byte timer = 0)
+        public Boolean CmdSetOutput(byte outid, Boolean value, byte timer = 0)
         {
             PacketSpinel97 txPacket = new PacketSpinel97();
             byte[] data;
@@ -53,7 +51,7 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
                 txPacket.INST = S97_INST_QUIDO_SetOutput;
 
                 data = new byte[1];
-                data[0] = (byte)(((value) ? 0x80 : 0x00) | (rele & 0x7F));
+                data[0] = (byte)(((value) ? 0x80 : 0x00) | (outid & 0x7F));
 
             } else {
 
@@ -61,7 +59,82 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
 
                 data = new byte[2];
                 data[0] = timer;
-                data[1] = (byte)(((value) ? 0x80 : 0x00) | (rele & 0x7F));
+                data[1] = (byte)(((value) ? 0x80 : 0x00) | (outid & 0x7F));
+            }
+
+            txPacket.ADR = this.ADR;
+
+            txPacket.SDATA = data;
+
+            PacketSpinel97 rxPacket;
+
+            if (this.SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        /// <summary>
+        /// Definuje stav jednoho výstupu. Obsahuje id výstupu (OUT1 = 1) a jeho stav (state) jako true/false.
+        /// </summary>
+        public struct OutputState
+        {
+            /// <summary>
+            /// Číslo výstupu. OUT1 = 1.
+            /// </summary>
+            public byte id;
+            /// <summary>
+            /// SET = true
+            /// </summary>
+            public bool state;
+
+            /// <summary>
+            /// Inicializuje strukturu id výstupu a stavem.
+            /// </summary>
+            /// <param name="outid">Číslo výstupu. OUT1 = 1.</param>
+            /// <param name="outstate">SET = true</param>
+            public OutputState(byte outid, bool outstate)
+            {
+                id = outid;
+                state = outstate;
+            }
+        }
+
+        /// <summary>
+        /// Nastavení více výstupů najednou. Může obsahovat nastavení jednoho nebo až všech výstupů do požadovaného stavu. Stav může být pro každý výstup jiný.
+        /// </summary>
+        /// <param name="outs">List struktur <see cref="OutputState"/>. (Obsahují byte číslo výstupu a bool stav výstupu.)</param>
+        /// <param name="timer">čas po který bude výstup nastaven do požadovaného stavu, poté dojde ke změně na opačný stav. ( 1-255 * 0.5s )</param>
+        /// <returns>vrací True v případě potvrzení příkazu modulem</returns>
+        public Boolean CmdSetOutputs(List<OutputState> outs, byte timer = 0)
+        {
+            PacketSpinel97 txPacket = new PacketSpinel97();
+            byte[] data;
+
+            if (outs.Count == 0) return false;
+
+            if (timer == 0)
+            {
+                txPacket.INST = S97_INST_QUIDO_SetOutput;
+
+                data = new byte[outs.Count];
+                for (int i = 0; i < outs.Count; i++)
+                {
+                    data[i] = (byte)(((outs[i].state) ? 0x80 : 0x00) | (outs[i].id & 0x7F));
+                }
+            }
+            else
+            {
+                txPacket.INST = S97_INST_QUIDO_SetOutputTimered;
+
+                data = new byte[outs.Count + 1];
+                data[0] = timer;
+                for (int i = 0; i < outs.Count; i++)
+                {
+                    data[i+1] = (byte)(((outs[i].state) ? 0x80 : 0x00) | (outs[i].id & 0x7F));
+                }
             }
 
             txPacket.ADR = this.ADR;
