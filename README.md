@@ -4,6 +4,7 @@
 Balíček knihoven a ukázkových aplikací pro práci se zařízeními komunikujícími protokolem [Spinel](https://www.papouch.com/cz/website/mainmenu/spinel/). Spinel je univerzální otevřený komunikační protokol od [papouch.com](https://www.papouch.com). V současné době jsou implementována tato zařízení:  
 * **I/O moduly Quido**: [dokumentace a příklady použití](https://github.com/Papouchcom/spinel.net/wiki/Dokumentace:-Quido), [odkaz na web papouch.com](https://www.papouch.com/cz/website/mainmenu/clanky/vyberte-si/io-pro-ethernet-usb-rs485-rs232/)  
 * **Teploměry TQS3 a TQS4**: [dokumentace a příklady použití](https://github.com/Papouchcom/spinel.net/wiki/Dokumentace:-TQS), [odkaz na web papouch.com](https://www.papouch.com/cz/website/mainmenu/products/mereni/teplomery-vlhkomery/rs485-tqs/)  
+* **Senzory THT2 a TH2E**: [dokumentace a příklady použití](https://github.com/Papouchcom/spinel.net/wiki/Dokumentace:-THT2,-TH2E), [THT2 na papouch.com](https://www.papouch.com/cz/shop/product/tht2-vlhkomer-teplomer-rs485/), [TH2E na papouch.com](https://www.papouch.com/cz/shop/product/th2e-ethernetovy-teplomer-s-vlhkomerem/)  
 
 Knihovna umožňuje i komunikaci se zařízeními, které používají protokol Spinel, ale nejsou v knihovně implementovány (viz funkce [`SendAndReceive()`](https://github.com/Papouchcom/spinel.net/wiki/Spinel:-Ostatn%C3%AD-instrukce)).
 
