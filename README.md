@@ -20,7 +20,7 @@ Co najdete ve složkách repozitáře:
 **\Papouch.Communication**:  Knihovny pro komunikaci (nejnižší vrstva).  
 **\Papouch.Spinel**: Knihovny protokolu Spinel (nadstavba pro Communication).  
 **\Papouch.Utils**: Doplňkové funkce.  
-**\Latest**: Zkompilované DLL, které můžete přímo [použít jako referenci](https://github.com/Papouchcom/spinel.net/wiki/Jak-do-projektu-p%C5%99idat-referenci-na-knihovny-spinel.net%3F) ve Vašem projektu (včetně PDB souborů).
+**\Latest**: Zkompilované DLL, které můžete přímo [použít jako referenci](https://github.com/Papouchcom/spinel.net/wiki/Jak-do-projektu-p%C5%99idat-referenci-na-knihovny-spinel.net) ve Vašem projektu (včetně PDB souborů).
   
 **\QuidoDemo_CS.NET**: Příklad aplikace pro Quido v C#.  
 **\QuidoDemo_VB.NET**: Příklad aplikce pro Quido ve VB.NET.  
