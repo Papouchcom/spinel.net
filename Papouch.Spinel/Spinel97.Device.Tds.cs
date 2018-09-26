@@ -73,9 +73,9 @@ namespace Papouch.Spinel.Spinel97.Device.Tds
             {
                 if (rxPacket.INST == (byte)ResponseACK.AllIsOk)
                 {
-                    if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 2))
+                    if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 3))
                     {
-                        temp = (float)(rxPacket.SDATA[0] * 256 + rxPacket.SDATA[1]) / 10;
+                        temp = (float)(rxPacket.SDATA[1] * 256 + rxPacket.SDATA[2]) / 10;
                         return ResponseACK.AllIsOk;
                     }
                 }
@@ -320,7 +320,7 @@ namespace Papouch.Spinel.Spinel97.Device.Tds
         }
 
         /// <summary>
-        /// Vynutit zobrazení automatických informací.
+        /// Vynutit zobrazení automatických informací pokud není nastavena platnost dat.
         /// </summary>
         /// <returns></returns>
         public bool CmdSetAutoInfo()
