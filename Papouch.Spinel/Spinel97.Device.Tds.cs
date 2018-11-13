@@ -12,7 +12,7 @@ namespace Papouch.Spinel.Spinel97.Device.Tds
         public byte S97_INST_TDS_SetBrightnessManual = 0x93;    // Nastavení jasu manuálně
         public byte S97_INST_TDS_SetBrightnessAuto = 0x95;      // Nastavení jasu automaticky
         public byte S97_INST_TDS_SetDataValidity = 0x94;        // Nastavení délky zobrazení
-        public byte S97_INST_TDS_SetDataAscii = 0x90;           // Zápis znaků na displej
+        public byte S97_INST_TDS_SetDataAscii = 0x92;           // Zápis znaků na displej
         public byte S97_INST_TDS_SetDataBin = 0x91;             // Zápis binárních dat na displej
         public byte S97_INST_TDS_SetFlags = 0x76;               // Nastavení parametrů času a zobrazení
         public byte S97_INST_TDS_SetAutoInfo = 0x78;            // Vynutit zobrazení automatických informací
