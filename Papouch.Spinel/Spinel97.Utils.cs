@@ -17,7 +17,7 @@ namespace Papouch.Spinel.Spinel97
             if ((i + 8) < dataLength)
             {
                 int len = data[i + 2] * 0x100 + data[i + 3] - 5;
-                if (i + len + 8 <= dataLength)
+                if ((i + len + 8 <= dataLength) && (data[i + 8 + len] == 0x0D))
                 {
                     packet = new PacketSpinel97();
                     packet.PRE = data[i];
@@ -35,8 +35,8 @@ namespace Papouch.Spinel.Spinel97
 
                     packet.SUM = data[i + 7 + len];
                     packet.CR = data[i + 8 + len];
+                    return i + len + 8;
 
-                    return i + len + 8; ;
                 }
             }
             return 0;
@@ -50,27 +50,26 @@ namespace Papouch.Spinel.Spinel97
             int index = 0;
             int i;
 
-            int bytesToRead = 0;
+            int bytesToRead;
             DateTime dt = DateTime.Now.AddMilliseconds(timeout);                 // maximální timeout pro příjem zprávy
             while (DateTime.Now < dt)
             {
                 System.Threading.Thread.Sleep(1);
                 bytesToRead = (int)ci.BytesToRead();
-                if (bytesToRead > 0) Debug.Print(bytesToRead.ToString());
+                // if (bytesToRead > 0) Debug.Print("Rx: " + bytesToRead.ToString());
                 if ((bytesToRead > 0) && (index + bytesToRead < 1024))
                 {
                     index += ci.Read(ref buffer, index, bytesToRead);
-                    //Debug.Print(Papouch.Utils.PapUtils.ConvertBinToHex(buffer));
+                    //Debug.Print(PapUtils.ConvertBinToHex(buffer));
                     i = GetSpinelPacket(ref buffer, index, out rxPacket);        // testujme zda je již přijat kompletní paket
                     if ((rxPacket != null) && (i > 0))
                     {
-                        //Debug.Print("packet");
+                        // Debug.Print("OK: " + PapUtils.ConvertBinToHex(rxPacket.GetBin()));
                         return true;
                     }
                 }
             }
-            //if (bytesToRead!=0)
-            //Debug.Print("timeout");
+            Debug.Print("Not parsed data: " + PapUtils.ConvertBinToHex(buffer));
             return false;
         }
 
@@ -78,34 +77,10 @@ namespace Papouch.Spinel.Spinel97
         {
             rxPacket = null;
             byte[] txData = txPacket.GetBin();
-
             ci.Write(txData, 0, txData.Length);
-            //            ci.Write(txData);
 
             return Receive(ref ci, out txPacket, timeout);
 
-/*            byte[] buffer = new byte[1024];                                      // přijímací buffer
-            int index = 0;
-            int i;
-
-            int bytesToRead = 0;
-            DateTime dt = DateTime.Now.AddMilliseconds(timeout);                 // maximální timeout pro příjem zprávy
-            while (DateTime.Now < dt)
-            {
-                System.Threading.Thread.Sleep(1);
-                bytesToRead = (int)ci.BytesToRead();
-                if ((bytesToRead > 0) && (index + bytesToRead < 1024))
-                {
-                    index += ci.Read(ref buffer, index, bytesToRead);
-                    i = GetSpinelPacket(ref buffer, index, out rxPacket);        // testujme zda je již přijat kompletní paket
-                    if ((rxPacket != null) && (i > 0))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
- */
         }
     }
 }

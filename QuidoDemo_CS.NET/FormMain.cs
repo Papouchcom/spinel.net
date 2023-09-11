@@ -10,7 +10,7 @@ using Papouch.Utils;
 using System.IO.Ports;
 
 using System.Threading;
-
+using System.Linq;
 
 namespace QuidoDemo
 {
@@ -350,16 +350,60 @@ namespace QuidoDemo
             if (quido != null)
             {
                 LogMsg("*** GetInputs ***");
+                KvidoTestDelays(null);
 
-                bool[] inputs = null;
-                if (quido.CmdGetInputs(out inputs))
-                {
-                    for (int index = 0; index < inputs.Length; index++)
-                    {
-                        LogMsg("Input " + index.ToString() + " is " + ((inputs[index]) ? "ON" : "OFF"));
-                    }
-                }
+         
+
+                //new System.Threading.Timer(ee =>
+                //{
+
+                //    bool[] inputs = null;
+                //    if (quido.CmdGetInputs(out inputs))
+                //    {
+                //        string bits = string.Join("", inputs.Select(b => b ? "1" : "0"));
+                //        LogMsg(bits);
+                //        //for (int index = 0; index < inputs.Length; index++)
+                //        //{
+                //        //    LogMsg("Input " + index.ToString() + " is " + ((inputs[index]) ? "ON" : "OFF"));
+                //        //}
+                //        System.Diagnostics.Debug.Print("---!!!!---");
+                //    } else
+                //    {
+                //        LogMsg("Failed");
+                //        System.Diagnostics.Debug.Print("------");
+                //    }
+
+
+                //}, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+
+
+
             }
+        }
+
+
+        private void KvidoTestDelays(object state)
+        {
+
+            bool[] inputs = null;
+            if (quido.CmdGetInputs(out inputs))
+            {
+                string bits = string.Join("", inputs.Select(b => b ? "1" : "0"));
+                // LogMsg(bits);
+                //for (int index = 0; index < inputs.Length; index++)
+                //{
+                //    LogMsg("Input " + index.ToString() + " is " + ((inputs[index]) ? "ON" : "OFF"));
+                //}
+                // System.Diagnostics.Debug.Print("------");
+            }
+            else
+            {
+                LogMsg("Failed");
+                System.Diagnostics.Debug.Print("---Failed---");
+            }
+
+            System.Threading.Timer callbackTimer = new System.Threading.Timer(KvidoTestDelays, null, 100, Timeout.Infinite);
+
         }
 
         #endregion
