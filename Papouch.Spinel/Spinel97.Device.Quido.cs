@@ -35,6 +35,41 @@ namespace Papouch.Spinel.Spinel97.Device.Quido
         }
 
         /// <summary>
+        ///     Zjistí počet vstupů, výstupů a vstupů pro teploměr
+        /// </summary>
+        /// <param name="inputsCount">počet vstupů</param>
+        /// <param name="outputsCount">počet výstupů</param>
+        /// <param name="thermsCount">počet vstupů pro teploměr</param>
+        /// <returns>vrací True v případě, že modul příkqaz zná a korektně odpoví</returns>
+        public Boolean CmdGetIOCounts(out int inputsCount, out int outputsCount, out int thermsCount)
+        {
+
+            if ((ci != null) && (ci.Active))
+            {
+                byte[] data = { 0x01 };
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_ReadInfo, data);
+                txPacket.ADR = this.ADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (this.SendAndReceive(ref txPacket, out rxPacket))
+                {
+                    if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 3))
+                    {
+                        inputsCount = rxPacket.SDATA[0];
+                        outputsCount = rxPacket.SDATA[1];
+                        thermsCount = rxPacket.SDATA[2];
+                        return true;
+                    }
+                }
+            }
+            inputsCount = -1;
+            outputsCount = -1;
+            thermsCount = -1;
+            return false;
+        }
+
+        /// <summary>
         ///     Nastavení výstupu
         /// </summary>
         /// <param name="outid">výstup (indexováno od 1)</param>

@@ -102,8 +102,8 @@ namespace QuidoDemo
             numericOutputTimer.Enabled = bq;
             labelOutputTimer.Enabled = bq;
 
-
             buttonGetInputs.Enabled = bq;
+            buttonGetIOCount.Enabled = bq;
 
             buttonGetCounter.Enabled = bq;
             buttonGetCounterSettings.Enabled = bq;
@@ -345,65 +345,41 @@ namespace QuidoDemo
 
         #region Commands: Inputs
 
+        private void buttonGetIOCount_Click(object sender, EventArgs e)
+        {
+            if (quido != null)
+            {
+                if (quido.CmdGetIOCounts(out int inputsCount, out int outputsCount, out int thermsCount))
+                {
+                    LogMsg($"Quido has {inputsCount} inputs, {outputsCount} outputs and {thermsCount} thermometer");
+                }
+                else
+                {
+                    LogMsg("Failed");
+                }
+            }
+        }
+
         private void buttonGetInputs_Click(object sender, EventArgs e)
         {
             if (quido != null)
             {
-                LogMsg("*** GetInputs ***");
-                KvidoTestDelays(null);
-
-         
-
-                //new System.Threading.Timer(ee =>
-                //{
-
-                //    bool[] inputs = null;
-                //    if (quido.CmdGetInputs(out inputs))
-                //    {
-                //        string bits = string.Join("", inputs.Select(b => b ? "1" : "0"));
-                //        LogMsg(bits);
-                //        //for (int index = 0; index < inputs.Length; index++)
-                //        //{
-                //        //    LogMsg("Input " + index.ToString() + " is " + ((inputs[index]) ? "ON" : "OFF"));
-                //        //}
-                //        System.Diagnostics.Debug.Print("---!!!!---");
-                //    } else
-                //    {
-                //        LogMsg("Failed");
-                //        System.Diagnostics.Debug.Print("------");
-                //    }
-
-
-                //}, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
-
-
-
+                bool[] inputs = null;
+                if (quido.CmdGetInputs(out inputs))
+                {
+                    string bits = string.Join("", inputs.Select(b => b ? "1" : "0"));
+                    StringBuilder result = new StringBuilder();
+                    for (int i = 0; i < bits.Length; i++)                    {
+                        result.Append(bits[i]);
+                        if ((i + 1) % 4 == 0 && i != bits.Length - 1) result.Append(' ');
+                    }
+                    LogMsg("GetInputs: " + result.ToString());
+                }
+                else
+                {
+                    LogMsg("Failed");
+                }
             }
-        }
-
-
-        private void KvidoTestDelays(object state)
-        {
-
-            bool[] inputs = null;
-            if (quido.CmdGetInputs(out inputs))
-            {
-                string bits = string.Join("", inputs.Select(b => b ? "1" : "0"));
-                // LogMsg(bits);
-                //for (int index = 0; index < inputs.Length; index++)
-                //{
-                //    LogMsg("Input " + index.ToString() + " is " + ((inputs[index]) ? "ON" : "OFF"));
-                //}
-                // System.Diagnostics.Debug.Print("------");
-            }
-            else
-            {
-                LogMsg("Failed");
-                System.Diagnostics.Debug.Print("---Failed---");
-            }
-
-            System.Threading.Timer callbackTimer = new System.Threading.Timer(KvidoTestDelays, null, 100, Timeout.Infinite);
-
         }
 
         #endregion

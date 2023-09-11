@@ -72,6 +72,7 @@ namespace QuidoDemo
             this.buttonGetInfo = new System.Windows.Forms.Button();
             this.buttonQuidoDestroy = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.buttonGetIOCount = new System.Windows.Forms.Button();
             this.groupBoxCommunicationInterface.SuspendLayout();
             this.groupBoxQuido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOutputTimer)).BeginInit();
@@ -324,6 +325,7 @@ namespace QuidoDemo
             this.groupBoxQuido.Controls.Add(this.buttonGetCounterSettings);
             this.groupBoxQuido.Controls.Add(this.buttonSetCounterSettings);
             this.groupBoxQuido.Controls.Add(this.buttonGetCounter);
+            this.groupBoxQuido.Controls.Add(this.buttonGetIOCount);
             this.groupBoxQuido.Controls.Add(this.buttonGetInputs);
             this.groupBoxQuido.Controls.Add(this.buttonGetInfoCore);
             this.groupBoxQuido.Controls.Add(this.buttonSetOutputOff);
@@ -562,6 +564,16 @@ namespace QuidoDemo
             this.richTextBox1.TabIndex = 20;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
+            // buttonGetIOCount
+            // 
+            this.buttonGetIOCount.Location = new System.Drawing.Point(207, 175);
+            this.buttonGetIOCount.Name = "buttonGetIOCount";
+            this.buttonGetIOCount.Size = new System.Drawing.Size(89, 46);
+            this.buttonGetIOCount.TabIndex = 23;
+            this.buttonGetIOCount.Text = "Get IO Count";
+            this.buttonGetIOCount.UseVisualStyleBackColor = true;
+            this.buttonGetIOCount.Click += new System.EventHandler(this.buttonGetIOCount_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -629,6 +641,7 @@ namespace QuidoDemo
         private System.Windows.Forms.RadioButton radioButtonTcpClient;
         private System.Windows.Forms.RadioButton radioButtonSerialPort;
         private System.Windows.Forms.Button buttonGetSn;
+        private System.Windows.Forms.Button buttonGetIOCount;
     }
 }
 
