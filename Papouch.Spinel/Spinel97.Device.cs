@@ -77,6 +77,35 @@ namespace Papouch.Spinel.Spinel97.Device
         }
 
         /// <summary>
+        /// Přečte dobu od zapnutí nebo restartu zařízení (v sekundách).
+        /// </summary>
+        /// <param name="runtime_sec">Int v sekundách. Pokud je -1, čtení se nepodařilo a výstupem instrukce je false.</param>
+        /// <returns>true = přečtení doby od zapnutí se nepodařilo se podařilo, false = čtení se nezdařilo nebo zařízení tuto instrukci neumí</returns>
+        public Boolean CmdGetRuntime(out int runtime_sec)
+        {
+            if ((ci != null) && (ci.Active))
+            {
+                byte[] data = { 0x31 };
+                PacketSpinel97 txPacket = new PacketSpinel97(S97_INST_ReadStatus, data);
+                txPacket.ADR = this.ADR;
+
+                PacketSpinel97 rxPacket;
+
+                if (SendAndReceive(ref txPacket, out rxPacket) && (rxPacket.INST == (byte)ResponseACK.AllIsOk))
+                {
+                    if ((rxPacket.SDATA != null) && (rxPacket.SDATA.Length == 5))
+                    {
+                        Array.Reverse(rxPacket.SDATA, 1, 4);
+                        runtime_sec = (int)BitConverter.ToUInt32(rxPacket.SDATA, 1);
+                        return true;
+                    }
+                }
+            }
+            runtime_sec = -1;
+            return false;
+        }
+
+        /// <summary>
         /// Přečte uživatelsky definované číslo, které lze využít k zjištění stavu přístroje.
         /// </summary>
         /// <param name="dev_status">Int s platným rozsahem 0 až 255. Pokud je -1, čtení se nepodařilo a i výstupem instrukce je false.</param>
